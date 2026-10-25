@@ -3,7 +3,6 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseModuleCatalog } from '@springfield/ham-radio-registry';
 import { describe, expect, it } from 'vitest';
-import { packBetaZip } from '../../scripts/pack-beta-zip.mjs';
 import { packRadioModuleReleases } from '../../scripts/pack-release-zip.mjs';
 
 const rootDirectory = join(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -33,17 +32,5 @@ describe('pack scripts', () => {
 
     expect(catalog.modules).toHaveLength(1);
     expect(catalog.modules[0]?.integrity).toBe(result.zips[0]?.integrity);
-  });
-
-  it('packs a beta zip without changing the working-tree version', () => {
-    const before = readFileSync(join(rootDirectory, 'configs/example-radio.json'), 'utf8');
-    const result = packBetaZip(rootDirectory, 'example-radio', 1, {
-      outputDirectory: join(rootDirectory, 'dist-release'),
-    });
-
-    expect(result.zipName).toBe('radio-module-example-radio-1.0.0-beta.1.zip');
-    expect(result.packedVersion).toBe('1.0.0-beta.1');
-    expect(result.sha256).toMatch(/^sha256:[a-f0-9]{64}$/);
-    expect(readFileSync(join(rootDirectory, 'configs/example-radio.json'), 'utf8')).toBe(before);
   });
 });

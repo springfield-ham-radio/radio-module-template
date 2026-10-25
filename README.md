@@ -22,7 +22,7 @@ yarn pack:beta example-radio
 
 `yarn pack:release` writes one zip per config whose version is newer than the latest stable GitHub Release asset for that model, plus `dist-release/catalog-entries.json`. `PACK_RELEASE_ALL=1` packs every config. The semantic-release prepare step calls `node scripts/pack-release-zip.mjs` with the repository tag, the same way the Baofeng and Kenwood modules do. The zip is `dist-release/radio-module-<modelId>-<config.version>.zip` and contains that config plus its `$ref` closure. JSON only.
 
-`yarn pack:beta example-radio` writes `dist-release/radio-module-example-radio-<version>-beta.1.zip` and does not modify the working tree. `@springfield/ham-radio-utils` 4.16.1 does not publish the shared `ham-radio-pack-beta` bin yet. **TODO:** switch `pack:beta` to that bin when [ham-radio-utils#35](https://github.com/springfield-ham-radio/ham-radio-utils/pull/35) ships (expected in utils 4.17.0). Until then the script is `scripts/pack-beta-zip.mjs`. The same TODO is at the top of that file.
+`yarn pack:beta example-radio` runs the `ham-radio-pack-beta` bin from `@springfield/ham-radio-utils` `^4.17.0` ([ham-radio-utils#35](https://github.com/springfield-ham-radio/ham-radio-utils/pull/35)). It writes `dist-release/radio-module-example-radio-<version>-beta.1.zip` and does not modify the working tree.
 
 ## Tutorial
 
