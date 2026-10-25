@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "description": "TODO: replace this placeholder map with the EEPROM layout from your own capture. Do not paste CHIRP MEM_FORMAT. Addresses are radio EEPROM addresses, not CHIRP image offsets.",
+  "todo": [
+    "Add one struct per repeated channel record and each settings block.",
+    "Set channelBindings (records, receiveFrequency, transmitFrequency, receiveTone, transmitTone) when the map has channels.",
+    "Give every non-reserved field a ui.group that matches a groups[].id.",
+    "Delete this todo array before you publish."
+  ],
+  "groups": [
+    {
+      "id": "basic",
+      "label": "Basic"
+    }
+  ],
+  "structs": [
+    {
+      "id": "settings",
+      "seek": 0,
+      "fields": [
+        {
+          "id": "placeholder",
+          "type": "u8",
+          "value": {
+            "kind": "integer",
+            "min": 0,
+            "max": 255
+          },
+          "ui": {
+            "group": "basic",
+            "label": "TODO setting",
+            "widget": "integer",
+            "description": "Replace with a real radio-wide field."
+          }
+        }
+      ]
+    }
+  ]
+}

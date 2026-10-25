@@ -1,0 +1,95 @@
+{
+  "$schema": "https://springfield-ham-radio.com/schemas/radio-config-v1.json",
+  "todo": [
+    "Rename this file to configs/<id.model>.json. id.model must contain a hyphen (example-radio, acme-ht-100).",
+    "Replace id.model, id.name, and id.manufacturer. Keep the file name identical to id.model.",
+    "Replace serialConfig, memoryConfig, readMemory, and writeMemory with the protocol from your own capture.",
+    "Point settingsSchema and memoryMap $refs at this radio's files.",
+    "Set minApiVersion to 18.0.1 unless the protocol needs a newer @springfield/ham-radio-api (onError cleanup needs 18.3.0).",
+    "Set bands only for amateur bands this model transmits on. Omit bands when coverage is unknown.",
+    "Set metadata.author, metadata.license (MIT or Apache-2.0), metadata.homepage, and metadata.repository.",
+    "Delete this todo array before you publish. HamBench ignores unknown fields, but a published driver should not ship placeholders."
+  ],
+  "id": {
+    "model": "example-radio",
+    "name": "TODO Example Radio",
+    "manufacturer": "TODO"
+  },
+  "version": "1.0.0",
+  "minApiVersion": "18.0.1",
+  "description": "TODO: replace this placeholder with the radio this module programs. One file is one radio. Two marketing names that share this file are one catalog entry.",
+  "capabilities": {
+    "memoryRead": true,
+    "memoryWrite": true,
+    "channelProgramming": true,
+    "settingsProgramming": true
+  },
+  "metadata": {
+    "author": "TODO",
+    "license": "MIT",
+    "homepage": "https://github.com/springfield-ham-radio/radio-module-template",
+    "repository": "https://github.com/springfield-ham-radio/radio-module-template"
+  },
+  "settingsSchema": {
+    "model": "example-radio",
+    "settingsSchema": {
+      "$ref": "../src/shared/schemas/settings-schema.json"
+    },
+    "channelSchema": {
+      "$ref": "../src/shared/schemas/channel-schema.json"
+    }
+  },
+  "memoryMap": {
+    "$ref": "../src/shared/memory-maps/example-radio.json"
+  },
+  "codec": {
+    "type": "memoryMap"
+  },
+  "serialConfig": {
+    "baudRate": 9600,
+    "dataBits": 8,
+    "stopBits": 1,
+    "parity": "none"
+  },
+  "memoryConfig": {
+    "chunkSize": 16,
+    "addressSize": 1,
+    "addressEndianness": "big",
+    "segments": {
+      "settings": {
+        "startAddress": 0,
+        "endAddress": 15
+      }
+    }
+  },
+  "readMemory": [
+    {
+      "description": "TODO: replace with the ident or magic exchange from your capture",
+      "send": ["0x02"],
+      "expect": { "bytes": 1 }
+    },
+    {
+      "description": "TODO: replace with the chunked read of this radio's segments",
+      "read": {
+        "segments": ["settings"],
+        "send": ["S", "$address", "$chunkSize"],
+        "expect": ["X", "$address", "$length", "$data"]
+      }
+    }
+  ],
+  "writeMemory": [
+    {
+      "description": "TODO: replace with the ident or magic exchange from your capture",
+      "send": ["0x02"],
+      "expect": { "bytes": 1 }
+    },
+    {
+      "description": "TODO: replace with the chunked write. Add write.skip for ranges that must not be uploaded.",
+      "write": {
+        "segments": ["settings"],
+        "send": ["X", "$address", "$length", "$data"],
+        "expect": "0x06"
+      }
+    }
+  ]
+}

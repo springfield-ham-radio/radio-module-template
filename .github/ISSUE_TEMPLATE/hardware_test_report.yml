@@ -1,0 +1,80 @@
+name: Hardware test report
+description: Read, write, and restore on a real radio
+title: "test: "
+labels:
+  - needs-testing
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use a radio whose memories you can restore. On a borrowed radio, the owner agrees to a read, a write, and a restore before you start. The restore image is the first read, saved, and not edited. Skip transmit unless you are licensed for that frequency and the owner asked for a transmit check.
+
+        Install the one-radio zip with **Preferences → Drivers → Install from file…**. A file that is not in the catalog yet is **Unverified** or **Beta**. That label is expected here.
+  - type: input
+    id: radio
+    attributes:
+      label: Radio
+      description: Manufacturer, model, and firmware if you know it.
+      placeholder: Acme HT-100, firmware 1.2
+    validations:
+      required: true
+  - type: input
+    id: cable
+    attributes:
+      label: Cable
+      description: Programming cable you used.
+    validations:
+      required: true
+  - type: input
+    id: driver
+    attributes:
+      label: Driver
+      description: id.model, config version, and whether this was a beta zip or a release zip.
+      placeholder: example-radio 1.0.0-beta.1
+    validations:
+      required: true
+  - type: input
+    id: sha256
+    attributes:
+      label: Zip SHA-256
+      description: The sha256 line printed by yarn pack:beta or yarn pack:release.
+      placeholder: sha256:…
+    validations:
+      required: true
+  - type: textarea
+    id: read
+    attributes:
+      label: Read
+      description: What the radio downloaded. If the transfer failed, save the serial log from the Debug tab and paste the relevant lines.
+    validations:
+      required: true
+  - type: textarea
+    id: write
+    attributes:
+      label: Write
+      description: The one channel and the one radio-wide setting you changed, and whether a following read showed those changes and left every other channel alone. Say if the field sits in a write.skip range.
+    validations:
+      required: true
+  - type: textarea
+    id: restore
+    attributes:
+      label: Restore
+      description: Confirm you wrote the untouched first read back, read again, and the channel and setting matched the original. Note the receive check, and any transmit check you were licensed to make.
+    validations:
+      required: true
+  - type: checkboxes
+    id: result
+    attributes:
+      label: Result on this radio
+      options:
+        - label: Read completed
+          required: true
+        - label: Write of one channel and one setting completed, then a read-back matched
+          required: true
+        - label: Restore of the original read completed, and a following read matched
+          required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Serial log excerpts, skip ranges, or anything that did not match. Leave empty when the three steps matched.

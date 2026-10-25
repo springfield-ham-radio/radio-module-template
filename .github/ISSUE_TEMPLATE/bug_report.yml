@@ -1,0 +1,32 @@
+name: Bug report
+description: A problem in this radio module
+title: "fix: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: radio
+    attributes:
+      label: Radio and driver version
+      placeholder: example-radio 1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Hardware test
+      description: If you tried the radio, say whether read, write, and restore worked. Open a Hardware test report when you have a full read, write, and restore to record.
+    validations:
+      required: false
