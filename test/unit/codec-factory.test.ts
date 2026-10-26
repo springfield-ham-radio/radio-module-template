@@ -1,0 +1,38 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import type { RadioMemoryConfig, RadioMemoryMap } from '@springfield/ham-radio-api';
+import { createMemoryMapCodec } from '@springfield/ham-radio-utils';
+import { MockLogLayer } from 'loglayer';
+import { describe, expect, it } from 'vitest';
+
+const rootDirectory = join(dirname(fileURLToPath(import.meta.url)), '../..');
+
+function readJson(relativePath: string): unknown {
+  return JSON.parse(readFileSync(join(rootDirectory, relativePath), 'utf8'));
+}
+
+describe('placeholder memory-map codec', () => {
+  it('builds a codec from the placeholder config and map', () => {
+    const config = readJson('configs/example-radio.json') as {
+      codec: { type: string };
+      memoryMap: { $ref: string };
+      memoryConfig: RadioMemoryConfig;
+      id: { model: string };
+    };
+
+    expect(config.codec.type).toBe('memoryMap');
+    expect(config.memoryMap.$ref).toBe('../src/shared/memory-maps/example-radio.json');
+
+    const memoryMap = readJson('src/shared/memory-maps/example-radio.json') as RadioMemoryMap;
+    const codec = createMemoryMapCodec({
+      radioModel: config.id.model as never,
+      memoryMap,
+      memoryConfig: config.memoryConfig,
+      logger: new MockLogLayer(),
+    });
+
+    expect(codec.decode).toBeTypeOf('function');
+    expect(codec.encode).toBeTypeOf('function');
+  });
+});

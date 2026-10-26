@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Build a radio driver
+    url: https://github.com/springfield-ham-radio/ham-radio-docs/blob/cursor/radio-driver-docs-c971/docs/developer/build-a-radio-driver.md
+    about: End-to-end tutorial for a HamBench radio module (newest text is on ham-radio-docs#31 until that pull request merges).
