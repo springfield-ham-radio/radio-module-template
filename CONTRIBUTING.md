@@ -20,6 +20,8 @@ Do not contribute GPL code. Do not paste or adapt CHIRP source. You may read CHI
 
 Use [Conventional Commits](https://www.conventionalcommits.org/) (`feat`, `fix`, `docs`, `test`, `ci`, `chore`). Commitlint runs from the `commit-msg` hook.
 
+Install the Node.js version in [`.nvmrc`](.nvmrc) and enable Corepack as described in the [README](README.md), then:
+
 ```bash
 yarn install
 yarn lint

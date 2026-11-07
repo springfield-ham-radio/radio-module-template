@@ -8,9 +8,11 @@ The file `configs/example-radio.json` is a placeholder. It has `minApiVersion`, 
 
 ## Quickstart
 
-Node.js is the version in [`.nvmrc`](.nvmrc) (26.10.0). This package pins Yarn 4.18.0.
+Node.js is the version in [`.nvmrc`](.nvmrc) (26.13.0). This package pins Yarn 4.18.0. Official Node.js 26 binaries do not include Corepack, so install it before Yarn:
 
 ```bash
+npm install -g corepack
+corepack enable
 yarn install
 yarn validate
 yarn test
